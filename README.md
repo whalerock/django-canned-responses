@@ -22,7 +22,7 @@ That should return something like
 
 If you don't have Python, head to [The Python Software Foundation site](https://www.python.org/) and download and install the most handsome version of Python 2.7 you can find.
 
-Next you're gonna need `pip`, the Python package manager. If you can't run `pip freeze` from the command line, you're gonna need to [install it](https://pip.pypa.io/en/stable/installing/).
+You're also gonna need `pip`, the Python package manager. If you can't run `pip freeze` from the command line, you're gonna need to [install it](https://pip.pypa.io/en/stable/installing/).
 
 Next up is `virtualenv`, which is a way to separate different versions of various Python packages for different uses/projects. After [installing virtualenv](http://virtualenv.readthedocs.org/en/latest/installation.html), create a new virtualenv called something like `canned` and activate it. [This page tells you how.](http://virtualenv.readthedocs.org/en/latest/userguide.html)
 
@@ -30,7 +30,7 @@ Next up is `virtualenv`, which is a way to separate different versions of variou
 
 Okay, so now you've got Python 2.7.x, `pip` and `virtualenv` installed and you've created and activated a virtual environment for this project, right? Don't make me come over there.
 
-Okay, so now `cd` to your favorite development directory and clone this repository, like so:
+`cd` to your favorite development directory and clone this repository, like so:
 
 `git clone https://github.com/whalerock/django-canned-responses.git`
 
@@ -52,7 +52,7 @@ python manage.py runserver
 
 This runs a web server on localhost (127.0.0.1) on port 8000. Note: that command can run the server using a different IP/port too, so something like `python manage.py runserver <your computer's IP address on NetworkX>:<the port>` would make the web server accessible to other devices on NetworkX (if the port is open). But for now, we'll keep it on localhost:8000.  Ctrl+C to stop it when you need to.
 
-Okay, so now you've got the server up and running LIKE A BOSS. In a web browser, surf over to [http://localhost:8000/some-thing/](http://localhost:8000/some-thing/) - it should 404. Makes sense since you haven't created any canned responses yet.
+Now you've got the server up and running LIKE A BOSS. In a web browser, surf over to [http://localhost:8000/some-thing/](http://localhost:8000/some-thing/) - it should 404. Makes sense since you haven't created any canned responses yet.
 
 ## Creating Canned Responses
 
@@ -68,12 +68,14 @@ Now surf on over to [http://localhost:8000/admin/](http://localhost:8000/admin/)
 
 Then save it.
 
-Now when you surf on over to [http://localhost:8000/foo/bar/](http://localhost:8000/foo/bar/) - you should see the HTML you entered rendered in all its black-and-white glory.
+Now when you go to [http://localhost:8000/foo/bar/](http://localhost:8000/foo/bar/) - you should see the HTML you entered rendered in all its black-and-white glory.
 
 That's pretty much all there is to it. Any request to this server other than those starting with `/admin/` will trigger a lookup for an active canned response with the path and method of the request being made. The canned response is simply returned with values from its instance. If not found, the view will 404.
 
 ## Shortcuts & Options
 
-When a canned response instance is saved with `active=True`, all other canned responses with the same request method and request path get set to `active=False`, which makes it easy to switch among many different canned responses for the same method/path, to test different scenarios. `Response sleep time` is an optional time, in seconds, that the view handler will wait before returning a response. The default is zero (no added latency), but if you want you can set that to a nonzero value when you want to test an actual timeout on the client side.
+When a canned response instance is saved with `active=True`, all other canned responses with the same request method and request path get set to `active=False`, which makes it easy to switch among many different canned responses for the same method/path, to test different scenarios.
+
+`Response sleep time` is an optional time, in seconds, that the view handler will wait before returning a response. The default is zero (no added latency), but if you want you can set that to a nonzero value (to simulate a web server being overloaded) when you want to test an actual timeout on the client side.
 
 ### Last updated: December 9, 2015

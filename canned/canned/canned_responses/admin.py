@@ -9,6 +9,7 @@ class CannedResponseAdmin(admin.ModelAdmin):
     list_filter = ('active', 'request_method', 'response_status_code', )
     list_editable = ('active', )
     ordering = ('request_path', '-active', )
+    search_fields = ('name', )
 
 
 admin.site.register(CannedResponse, CannedResponseAdmin)

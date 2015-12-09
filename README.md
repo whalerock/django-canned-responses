@@ -34,7 +34,7 @@ Now surf on over to http://localhost:8000/admin/ and log in as your superuser. N
 - `Response status code`: 200
 - `Response sleep time`: 0
 - `Response content type`: HTML
-- `Response payload`: <html><h1>Woohoo! FooBar, baby!!</h1></html>
+- `Response payload`: `<html><h1>Woohoo! FooBar, baby!!</h1></html>`
 
 (and save it)
 

@@ -1,4 +1,3 @@
-import json
 from django.db import models
 from django.http import HttpResponse
 
@@ -6,7 +5,7 @@ from settings import REQUEST_METHOD_CHOICES
 from settings import RESPONSE_CONTENT_TYPE_CHOICES
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 class CannedResponse(models.Model):
     '''
     Model to store canned responses for different request methods/paths.
@@ -18,6 +17,10 @@ class CannedResponse(models.Model):
     response_status_code = models.IntegerField(default=200)
     response_sleep_time = models.IntegerField(default=0)
     response_content_type = models.CharField(max_length=64, choices=RESPONSE_CONTENT_TYPE_CHOICES)
+    response_headers = models.TextField(
+        default="",
+        blank=True,
+        help_text="Enter the headers one on each line 'Location: http://google.com/'")
     response_payload = models.TextField()
 
     class Meta:
@@ -39,6 +42,11 @@ class CannedResponse(models.Model):
             status=self.response_status_code,
             content=self.response_payload
         )
+        if self.response_headers:
+            for line in self.response_headers.split('\n'):
+                if ":" in line:
+                    key, value = line.split(":", 1)
+                    response[key] = value.strip()
         return response
 
     def _deactivate_others_of_same_method_path(self):
